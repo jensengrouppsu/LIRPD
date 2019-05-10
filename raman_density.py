@@ -121,12 +121,24 @@ class RamanDensityObj(object):
         self.alpha[:, 2, 1] = self.alpha[:, 1, 2]
 
     def collect_aatensor_cube(self,
-                              xxxr=None, xyyr=None, xzzr=None, xxyr=None, xxzr=None, xyzr=None,
-                              yxxr=None, yyyr=None, yzzr=None, yxyr=None, yxzr=None, yyzr=None,
-                              zxxr=None, zyyr=None, zzzr=None, zxyr=None, zxzr=None, zyzr=None,
-                              xxxi=None, xyyi=None, xzzi=None, xxyi=None, xxzi=None, xyzi=None,
-                              yxxi=None, yyyi=None, yzzi=None, yxyi=None, yxzi=None, yyzi=None,
-                              zxxi=None, zyyi=None, zzzi=None, zxyi=None, zxzi=None, zyzi=None):
+                              xxxr=None, xyyr=None, xzzr=None, 
+                              xxyr=None, xxzr=None, xyzr=None,
+                              xyxr=None, xzxr=None, xzyr=None,
+                              xxxi=None, xyyi=None, xzzi=None, 
+                              xxyi=None, xxzi=None, xyzi=None,
+                              xyxi=None, xzxi=None, xzyi=None,
+                              yxxr=None, yyyr=None, yzzr=None, 
+                              yxyr=None, yxzr=None, yyzr=None,
+                              yyxr=None, yzxr=None, yzyr=None,
+                              yxxi=None, yyyi=None, yzzi=None, 
+                              yxyi=None, yxzi=None, yyzi=None,
+                              yyxi=None, yzxi=None, yzyi=None,
+                              zxxr=None, zyyr=None, zzzr=None, 
+                              zxyr=None, zxzr=None, zyzr=None,
+                              zyxr=None, zzxr=None, zzyr=None,
+                              zxxi=None, zyyi=None, zzzi=None, 
+                              zxyi=None, zxzi=None, zyzi=None,
+                              zyxi=None, zzxi=None, zzyi=None ):
         '''
         A function to collect polarizability density from cubefiles.
         Aatensor density's dimension is (ngrid, 3, 3, 3)
@@ -139,101 +151,66 @@ class RamanDensityObj(object):
         '''
         self.aatensor = np.zeros((self.gridinfo['ngrid'], 3, 3, 3))
 
-        if xxxr is not None:
-            self.aatensor[:, 0, 0, 0].real = read_cube(xxxr, self.natoms)
-        if xyyr is not None:
-            self.aatensor[:, 0, 1, 1].real = read_cube(xyyr, self.natoms)
-        if xzzr is not None:
-            self.aatensor[:, 0, 2, 2].real = read_cube(xzzr, self.natoms)
-        if xxyr is not None:
-            self.aatensor[:, 0, 0, 1].real = read_cube(xxyr, self.natoms)
-            self.aatensor[:, 0, 1, 0].real = self.aatensor[:, 0, 0, 1].real
-        if xxzr is not None:
-            self.aatensor[:, 0, 0, 2].real = read_cube(xxzr, self.natoms)
-            self.aatensor[:, 0, 2, 0].real = self.aatensor[:, 0, 0, 2].real
-        if xyzr is not None:
-            self.aatensor[:, 0, 1, 2].real = read_cube(xyzr, self.natoms)
-            self.aatensor[:, 0, 2, 1].real = self.aatensor[:, 0, 1, 2].real
+        if xxxr is not None: self.aatensor[:, 0, 0, 0].real = read_cube(xxxr, self.natoms)
+        if xyyr is not None: self.aatensor[:, 0, 1, 1].real = read_cube(xyyr, self.natoms)
+        if xzzr is not None: self.aatensor[:, 0, 2, 2].real = read_cube(xzzr, self.natoms)
+        if xxyr is not None: self.aatensor[:, 0, 0, 1].real = read_cube(xxyr, self.natoms)
+        if xyxr is not None: self.aatensor[:, 0, 1, 0].real = read_cube(xyxr, self.natoms)
+        if xxzr is not None: self.aatensor[:, 0, 0, 2].real = read_cube(xxzr, self.natoms)
+        if xzxr is not None: self.aatensor[:, 0, 2, 0].real = read_cube(xzxr, self.natoms)
+        if xyzr is not None: self.aatensor[:, 0, 1, 2].real = read_cube(xyzr, self.natoms)
+        if xzyr is not None: self.aatensor[:, 0, 2, 1].real = read_cube(xzyr, self.natoms)
 
-        if xxxi is not None:
-            self.aatensor[:, 0, 0, 0].imag = read_cube(xxxi, self.natoms)
-        if xyyi is not None:
-            self.aatensor[:, 0, 1, 1].imag = read_cube(xyyi, self.natoms)
-        if xzzi is not None:
-            self.aatensor[:, 0, 2, 2].imag = read_cube(xzzi, self.natoms)
-        if xxyi is not None:
-            self.aatensor[:, 0, 0, 1].imag = read_cube(xxyi, self.natoms)
-            self.aatensor[:, 0, 1, 0].imag = self.aatensor[:, 0, 0, 1].imag
-        if xxzi is not None:
-            self.aatensor[:, 0, 0, 2].imag = read_cube(xxzi, self.natoms)
-            self.aatensor[:, 0, 2, 0].imag = self.aatensor[:, 0, 0, 2].imag
-        if xyzi is not None:
-            self.aatensor[:, 0, 1, 2].imag = read_cube(xyzi, self.natoms)
-            self.aatensor[:, 0, 2, 1].imag = self.aatensor[:, 0, 1, 2].imag
+        if xxxi is not None: self.aatensor[:, 0, 0, 0].imag = read_cube(xxxi, self.natoms)
+        if xyyi is not None: self.aatensor[:, 0, 1, 1].imag = read_cube(xyyi, self.natoms)
+        if xzzi is not None: self.aatensor[:, 0, 2, 2].imag = read_cube(xzzi, self.natoms)
+        if xxyi is not None: self.aatensor[:, 0, 0, 1].imag = read_cube(xxyi, self.natoms)
+        if xyxi is not None: self.aatensor[:, 0, 1, 0].imag = read_cube(xyxi, self.natoms)
+        if xxzi is not None: self.aatensor[:, 0, 0, 2].imag = read_cube(xxzi, self.natoms)
+        if xzxi is not None: self.aatensor[:, 0, 2, 0].imag = read_cube(xzxi, self.natoms)
+        if xyzi is not None: self.aatensor[:, 0, 1, 2].imag = read_cube(xyzi, self.natoms)
+        if xzyi is not None: self.aatensor[:, 0, 2, 1].imag = read_cube(xzyi, self.natoms)
 
-        if yxxr is not None:
-            self.aatensor[:, 1, 0, 0].real = read_cube(xxxr, self.natoms)
-        if yyyr is not None:
-            self.aatensor[:, 1, 1, 1].real = read_cube(xyyr, self.natoms)
-        if yzzr is not None:
-            self.aatensor[:, 1, 2, 2].real = read_cube(xzzr, self.natoms)
-        if yxyr is not None:
-            self.aatensor[:, 1, 0, 1].real = read_cube(xxyr, self.natoms)
-            self.aatensor[:, 1, 1, 0].real = self.aatensor[:, 1, 0, 1].real
-        if yxzr is not None:
-            self.aatensor[:, 1, 0, 2].real = read_cube(xxzr, self.natoms)
-            self.aatensor[:, 1, 2, 0].real = self.aatensor[:, 1, 0, 2].real
-        if yyzr is not None:
-            self.aatensor[:, 1, 1, 2].real = read_cube(xyzr, self.natoms)
-            self.aatensor[:, 1, 2, 1].real = self.aatensor[:, 1, 1, 2].real
+        if yxxr is not None: self.aatensor[:, 1, 0, 0].real = read_cube(yxxr, self.natoms)
+        if yyyr is not None: self.aatensor[:, 1, 1, 1].real = read_cube(yyyr, self.natoms)
+        if yzzr is not None: self.aatensor[:, 1, 2, 2].real = read_cube(yzzr, self.natoms)
+        if yxyr is not None: self.aatensor[:, 1, 0, 1].real = read_cube(yxyr, self.natoms)
+        if yyxr is not None: self.aatensor[:, 1, 1, 0].real = read_cube(yyxr, self.natoms)
+        if yxzr is not None: self.aatensor[:, 1, 0, 2].real = read_cube(yxzr, self.natoms)
+        if yzxr is not None: self.aatensor[:, 1, 2, 0].real = read_cube(yzxr, self.natoms)
+        if yyzr is not None: self.aatensor[:, 1, 1, 2].real = read_cube(yyzr, self.natoms)
+        if yzyr is not None: self.aatensor[:, 1, 2, 1].real = read_cube(yzyr, self.natoms)
 
-        if yxxi is not None:
-            self.aatensor[:, 1, 0, 0].imag = read_cube(xxxi, self.natoms)
-        if yyyi is not None:
-            self.aatensor[:, 1, 1, 1].imag = read_cube(xyyi, self.natoms)
-        if yzzi is not None:
-            self.aatensor[:, 1, 2, 2].imag = read_cube(xzzi, self.natoms)
-        if yxyi is not None:
-            self.aatensor[:, 1, 0, 1].imag = read_cube(xxyi, self.natoms)
-            self.aatensor[:, 1, 0, 1].imag = self.aatensor[:, 1, 0, 1].imag
-        if yxzi is not None:
-            self.aatensor[:, 1, 0, 2].imag = read_cube(xxzi, self.natoms)
-            self.aatensor[:, 1, 2, 0].imag = self.aatensor[:, 1, 0, 2].imag
-        if yyzi is not None:
-            self.aatensor[:, 1, 1, 2].imag = read_cube(xyzi, self.natoms)
-            self.aatensor[:, 1, 2, 1].imag = self.aatensor[:, 1, 1, 2].imag
+        if yxxi is not None: self.aatensor[:, 1, 0, 0].imag = read_cube(yxxi, self.natoms)
+        if yyyi is not None: self.aatensor[:, 1, 1, 1].imag = read_cube(yyyi, self.natoms)
+        if yzzi is not None: self.aatensor[:, 1, 2, 2].imag = read_cube(yzzi, self.natoms)
+        if yxyi is not None: self.aatensor[:, 1, 0, 1].imag = read_cube(yxyi, self.natoms)
+        if yyxi is not None: self.aatensor[:, 1, 1, 0].imag = read_cube(yyxi, self.natoms)
+        if yxzi is not None: self.aatensor[:, 1, 0, 2].imag = read_cube(yxzi, self.natoms)
+        if yzxi is not None: self.aatensor[:, 1, 2, 0].imag = read_cube(yzxi, self.natoms)
+        if yyzi is not None: self.aatensor[:, 1, 1, 2].imag = read_cube(yyzi, self.natoms)
+        if yzyi is not None: self.aatensor[:, 1, 2, 1].imag = read_cube(yzyi, self.natoms)
 
-        if zxxr is not None:
-            self.aatensor[:, 2, 0, 0].real = read_cube(xxxr, self.natoms)
-        if zyyr is not None:
-            self.aatensor[:, 2, 1, 1].real = read_cube(xyyr, self.natoms)
-        if zzzr is not None:
-            self.aatensor[:, 2, 2, 2].real = read_cube(xzzr, self.natoms)
-        if zxyr is not None:
-            self.aatensor[:, 2, 0, 1].real = read_cube(xxyr, self.natoms)
-            self.aatensor[:, 2, 1, 2].real = self.aatensor[:, 2, 0, 1].real
-        if zxzr is not None:
-            self.aatensor[:, 2, 0, 2].real = read_cube(xxzr, self.natoms)
-            self.aatensor[:, 2, 2, 0].real = self.aatensor[:, 2, 0, 2].real
-        if zyzr is not None:
-            self.aatensor[:, 2, 1, 2].real = read_cube(xyzr, self.natoms)
-            self.aatensor[:, 2, 2, 1].real = self.aatensor[:, 2, 1, 2].real
+        if zxxr is not None: self.aatensor[:, 2, 0, 0].real = read_cube(zxxr, self.natoms)
+        if zyyr is not None: self.aatensor[:, 2, 1, 1].real = read_cube(zyyr, self.natoms)
+        if zzzr is not None: self.aatensor[:, 2, 2, 2].real = read_cube(zzzr, self.natoms)
+        if zxyr is not None: self.aatensor[:, 2, 0, 1].real = read_cube(zxyr, self.natoms)
+        if zyxr is not None: self.aatensor[:, 2, 1, 0].real = read_cube(zyxr, self.natoms)
+        if zxzr is not None: self.aatensor[:, 2, 0, 2].real = read_cube(zxzr, self.natoms)
+        if zzxr is not None: self.aatensor[:, 2, 2, 0].real = read_cube(zzxr, self.natoms)
+        if zyzr is not None: self.aatensor[:, 2, 1, 2].real = read_cube(zyzr, self.natoms)
+        if zzyr is not None: self.aatensor[:, 2, 2, 1].real = read_cube(zzyr, self.natoms)
 
-        if zxxi is not None:
-            self.aatensor[:, 2, 0, 0].imag = read_cube(xxxi, self.natoms)
-        if zyyi is not None:
-            self.aatensor[:, 2, 1, 1].imag = read_cube(xyyi, self.natoms)
-        if zzzi is not None:
-            self.aatensor[:, 2, 2, 2].imag = read_cube(xzzi, self.natoms)
-        if zxyi is not None:
-            self.aatensor[:, 2, 0, 1].imag = read_cube(xxyi, self.natoms)
-            self.aatensor[:, 2, 1, 0].imag = self.aatensor[:, 2, 0, 1].imag
-        if zxzi is not None:
-            self.aatensor[:, 2, 0, 2].imag = read_cube(xxzi, self.natoms)
-            self.aatensor[:, 2, 2, 0].imag = self.aatensor[:, 2, 0, 2].imag
-        if zyzi is not None:
-            self.aatensor[:, 2, 1, 2].imag = read_cube(xyzi, self.natoms)
-            self.aatensor[:, 2, 2, 1].imag = self.aatensor[:, 2, 1, 2].imag
+        if zxxi is not None: self.aatensor[:, 2, 0, 0].imag = read_cube(zxxi, self.natoms)
+        if zyyi is not None: self.aatensor[:, 2, 1, 1].imag = read_cube(zyyi, self.natoms)
+        if zzzi is not None: self.aatensor[:, 2, 2, 2].imag = read_cube(zzzi, self.natoms)
+        if zxyi is not None: self.aatensor[:, 2, 0, 1].imag = read_cube(zxyi, self.natoms)
+        if zyxi is not None: self.aatensor[:, 2, 1, 0].imag = read_cube(zyxi, self.natoms)
+        if zxzi is not None: self.aatensor[:, 2, 0, 2].imag = read_cube(zxzi, self.natoms)
+        if zzxi is not None: self.aatensor[:, 2, 2, 0].imag = read_cube(zzxi, self.natoms)
+        if zyzi is not None: self.aatensor[:, 2, 1, 2].imag = read_cube(zyzi, self.natoms)
+        if zzyi is not None: self.aatensor[:, 2, 2, 1].imag = read_cube(zzyi, self.natoms)
+
 
     def scan_constant_height(self, scanxyz, v_freq=0, laser=634, temperature=298, part='both',
                              out="out.pickle", nproc=1):
