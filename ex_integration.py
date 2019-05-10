@@ -15,8 +15,6 @@ An example code that runs the LIRPD method on a molecule's alpha and A-tensor de
 #  Part I: Integration  #
 #########################
 
-
-
 # Choose how many processes to use in the integration for speeding up
 nproc = 4
 
@@ -32,7 +30,6 @@ br = ANGSTROM2BOHR(np.array([bx,by,bz]))
 bi = ANGSTROM2BOHR(np.array([bx,by,bz]))
 # Define focal plane height
 height = ANGSTROM2BOHR(0.8)
-
 
 
 # Initialization for integration
@@ -74,8 +71,9 @@ v_freq=835.94   # Need v_freq for this mode to calculate cross-section
 d.scan_constant_height(scanxyz, v_freq=v_freq, part='both', out=outfile, nproc=nproc)
 
 
-
-### Part II: Plotting ###
+#########################
+#   Part II: Plotting   #
+#########################
 
 print('Plotting...')
 outfile = 'example-data/benzene/mode835.94.png'    
