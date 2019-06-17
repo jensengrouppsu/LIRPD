@@ -63,13 +63,13 @@ class RamanDensityObj(object):
 
     def collect_density_pickle(self, alpha=None, aatensor=None):
         if alpha is not None:
-            tensors = np.load(alpha)
+            tensors = np.load(alpha, allow_pickle=True)
             self.alpha = tensors['alpha']
             shape = self.alpha.shape
             if len(shape) > 3:
                 self.alpha = self.alpha.reshape(-1, shape[-2], shape[-1])
         if aatensor is not None:
-            tensors = np.load(aatensor)
+            tensors = np.load(aatensor, allow_pickle=True)
             self.aatensor = tensors['aatensor']
             shape = self.aatensor.shape
             if len(shape) > 4:
