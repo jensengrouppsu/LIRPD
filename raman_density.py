@@ -27,7 +27,8 @@ class RamanDensityObj(object):
                     'nstep': [0, 0, 0],     # Number of steps in each direction
                     'stepsize': [0, 0, 0]}  # Step size in each direction / Bohr
         l = cube.readline().strip().split()
-        natm, gridinfo['org'] = int(l[0]), map(float, l[1:])
+       #natm, gridinfo['org'] = int(l[0]), map(float, l[1:])
+        natm, gridinfo['org'] = int(l[0]), [float(i) for i in l[1:]]
         l = cube.readline().strip().split()
         gridinfo['nstep'][0], gridinfo['stepsize'][0] = int(l[0]), float(l[1])
         l = cube.readline().strip().split()
@@ -43,7 +44,8 @@ class RamanDensityObj(object):
         coords = np.zeros((natm, 3), dtype=float)
         for i in range(natm):
             l = cube.readline().strip().split()
-            atm[i], coords[i] = int(l[0]), map(float, l[2:])
+           #atm[i], coords[i] = int(l[0]), map(float, l[2:])
+            atm[i], coords[i] = int(l[0]), [float(j) for j in l[2:]]
         self.natoms = natm
         self.atoms = atm
         self.coords = np.array(coords)
@@ -238,8 +240,8 @@ class RamanDensityObj(object):
         #gridinfo['nstep'] = [nx, ny, 1]
         #gridinfo['stepsize'] = [stepX, stepY, 0]
         #scanxyz = construct_grid(gridinfo)
-
-        dr = reduce(lambda x, y: x*y, self.gridinfo['stepsize'])
+        import functools
+        dr = functools.reduce(lambda x, y: x*y, self.gridinfo['stepsize'])
         # Multiprocessing the scanning
         if part == 'imag':
             self.alpha.real = self.alpha.real * 0

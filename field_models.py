@@ -21,7 +21,8 @@ def field_lorentzian(center=[0, 0, 0], cubegrid=None, direction=2,
     fg = np.zeros((len(cubegrid), 3, 3, 3), dtype=complex)
 
     if mr > 0:
-        rxyzr = map(lambda x: x/2.0, br)
+       #rxyzr = map(lambda x: x/2.0, br)
+        rxyzr = [x/2.0 for x in br]
         denominatorR = (np.square((cubegrid - center) / rxyzr).sum(axis=-1) + 1.)
         field[:, direction, direction].real = mr / denominatorR + 1. # Add in the unit external field
         fdxr = -4. * (cubegrid[:, 0] - center[0]) / (br[0] * denominatorR**2)
@@ -30,7 +31,8 @@ def field_lorentzian(center=[0, 0, 0], cubegrid=None, direction=2,
         fg[:, direction, direction].real = mr * np.stack((fdxr, fdyr, fdzr)).transpose()
 
     if mi > 0:
-        rxyzi = map(lambda x: x/2.0, bi)
+       #rxyzi = map(lambda x: x/2.0, bi)
+        rxyzi = [x/2.0 for x in bi]
         denominatorI = (np.square((cubegrid - center) / rxyzi).sum(axis=-1) + 1.)
         field[:, direction, direction].imag = mi / denominatorI
         fdxi = -4. * (cubegrid[:, 0] - center[0]) / (bi[0] * denominatorI**2)

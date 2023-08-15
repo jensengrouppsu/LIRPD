@@ -77,6 +77,6 @@ d.scan_constant_height(scanxyz, v_freq=v_freq, part='both', out=outfile, nproc=n
 
 print('Plotting...')
 outfile = 'example-data/benzene/mode835.94.png'    
-integrated = np.load('example-data/benzene/mode835.94.integrated.pickle')
+integrated = np.load('example-data/benzene/mode835.94.integrated.pickle', allow_pickle=True)
 scanxyz = scanxyz.reshape(nx,ny,3)  # Reshape the scan coordinates for plotting
 plot_ters_image(scanxyz[:,:,0], scanxyz[:,:,1], integrated.reshape(nx,ny), d.coords, outfile)
